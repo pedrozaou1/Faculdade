@@ -1,0 +1,39 @@
+public class Exer6 {
+
+	public static void main(String[] args) {
+		
+		//declaração das variáveis
+		String nomeFuncionario = "Carlos";
+		int horasTrabalhadas = 80;
+		int dependentes = 2;
+		int horasPagas;
+		int dependentesPagos;
+		int salarioBruto;
+		float salarioLiquido;
+		float descontoINSS;
+		float descontoIR;
+		
+		
+		//contas
+		System.out.println("Folha de pagamento do funcionário: "+nomeFuncionario);
+		System.out.println("-----------------------");
+		//1 - O salário bruto
+		salarioBruto = (horasTrabalhadas * 32) + dependentes * 40;
+		System.out.println("Seu salário bruto: R$"+salarioBruto);
+		//2 - Valor do desconto de INSS 
+		descontoINSS = (float) (8.5/100 * salarioBruto);
+		System.out.println("Valor do desconto do INSS: R$"+descontoINSS);
+		//3 - Valor do desconto de IR
+		descontoIR = (float) (5.0/100 * salarioBruto);
+		System.out.println("Valor do desconto do IR: R$"+descontoIR);
+		//4 - Valor liquido do salário deste funcionário
+		salarioLiquido = (salarioBruto - descontoINSS) - descontoIR;
+		System.out.println("Seu salário líquido: R$"+salarioLiquido);
+		
+		
+		
+		
+		
+	}
+	
+}
