@@ -1,0 +1,19 @@
+import java.util.Scanner;
+
+public class Exer5 {
+	
+	public static void main(String[] args) {
+		
+		float area, base, altura;
+		
+		Scanner in = new Scanner(System.in); 
+		System.out.println("Digite a base do seu triângulo: ");
+		base = in.nextFloat();
+		System.out.println("Digite a altura do seu triângulo: ");
+		altura = in.nextFloat();
+		area = (base * altura) / 2;
+		System.out.println(area);
+		
+	}
+
+}
