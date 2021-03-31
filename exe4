@@ -1,0 +1,16 @@
+Var
+// Seção de Declarações das variáveis 
+valor, novoValor: real
+aumento: real
+Inicio
+// Seção de Comandos, procedimento, funções, operadores, etc... 
+ESCREVAL("Digite seu valor")
+LEIA(valor)
+aumento <- 15.8
+aumento <- valor * (aumento / 100)
+novoValor <- aumento + valor
+ESCREVAL("O novo valor agora é: ", novoValor)
+
+
+
+Fimalgoritmo
