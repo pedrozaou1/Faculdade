@@ -1,0 +1,39 @@
+Var
+// Seção de Declarações das variáveis 
+
+numero1, numero2, numero3, somar, somar2, somar3, subtrair, subtrair2, multiplicar: inteiro
+
+Inicio
+// Seção de Comandos, procedimento, funções, operadores, etc... 
+Escreval("Digite o primeiro valor: ")
+Leia(numero1)
+Escreval("Digite o segundo valor: ")
+Leia(numero2)
+Escreval("Digite o terceiro valor: ")
+Leia(numero3)
+
+//PROCESSO
+
+//SOMANDO
+somar <- numero1 + numero2
+//SUBTRAINDO
+subtrair <- numero2 - numero1
+//MUILTIPLICANDO
+multiplicar <- numero3 * numero1
+//SOMAR2
+somar2 <- numero3 + numero2
+//SUBTRAIR2
+subtrair2 <- numero3 - numero2
+//SOMAR3
+somar3 <- numero1 + numero2 + numero3
+
+
+//RESULTADO
+Escreval("O resultado da soma de V1+V2 é: ", somar)
+Escreval("O resultado da subtração de V2-V1 é: ", subtrair)
+Escreval("O resultado da multiplicação de V3*V1 é: ", multiplicar)
+Escreval("O resultado da soma de V3+V2 é: ", somar2)
+Escreval("O resultado da subtração de V3-V2 é: ", subtrair2)
+Escreval("O resultado da soma de V1+V2+V3 é: ", somar3)
+
+Fimalgoritmo
