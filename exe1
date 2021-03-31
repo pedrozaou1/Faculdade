@@ -1,0 +1,35 @@
+Var
+// Seção de Declarações das variáveis 
+
+numero1, numero2, somar, subtrair, multiplicar: inteiro
+dividir, resto: real
+
+Inicio
+// Seção de Comandos, procedimento, funções, operadores, etc... 
+Escreval("Digite o primeiro valor: ")
+Leia(numero1)
+Escreval("Digite o segundo valor: ")
+Leia(numero2)
+
+//PROCESSO
+//SOMANDO
+somar <- numero1 + numero2
+//SUBTRAINDO
+subtrair <- numero1 - numero2
+//MUILTIPLICANDO
+multiplicar <- numero1 * numero2
+//DIVIDINDO
+dividir <- numero1 / numero2
+//RESTANTE
+resto <- numero1 % numero2
+
+//RESULTADO
+Escreval("O resultado da soma é: ", somar)
+Escreval("O resultado da subtração é: ", subtrair)
+Escreval("O resultado da multiplicação é: ", multiplicar)
+Escreval("O resultado da divisão é: ", dividir)
+Escreval("O resultado da porcentagem é: ", resto)
+
+Fimalgoritmo
+
+
