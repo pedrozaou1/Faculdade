@@ -100,7 +100,7 @@ class Imposto{
 								break;
 							}
 							
-							//Qual sua classificação 
+							//Qual sua classificação
 							case 3: {
 								
 								//Seu salário
