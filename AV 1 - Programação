@@ -1,0 +1,276 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
+public class Aum {
+
+	public static void main(String[] args) {
+
+		// VARIÁVEIS
+
+		String nome = "", categoria = "", desempregado = "", estado = "", escolha = "", categoria1 = "", 
+				aposentado = "", categoriaAtt = "", beneficiarioValorMaior = "", beneficiarioValorMenor = "", tempoBeneficioMaior1 = "", tempoBeneficioMenor1 = "";
+		int funcionarios = 0, desempregadoTempo, aposentadoTempo, tempoBeneficio = 0, tempoBeneficioMaior = 0, tempoBeneficioMenor = 0;
+		double beneficioEmpregado = 0.0, beneficioDesempregado = 0.0, benefício3, benEmpregador, benEmpregado,
+				benDesempregado;
+		double benEmpregadorValor = 200, benEmpregadorTotal, benEmpregadorTotalConta = 0.0, benEmpregadoTotal;
+
+		int iQtdBeneficiarios = 0, QtdUsuariosLidos = 0;
+		double valorTotalBeneficios = 0.0, menorValor = 0.0, maiorValor = 0.0;
+		
+		do {
+
+			Scanner in = new Scanner(System.in);
+			System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+			System.out.println("~~~~~~~Olá tudo bem? Seja bem vindo!~~~~~~~\n");
+			System.out.println("Digite seu nome: ");
+			nome = in.nextLine();
+			String sDataNasc;
+			System.out.println("Informe sua data de nascimento: ");
+			sDataNasc = in.next();
+			in.reset();
+			in.nextLine();
+			System.out.println("Digite a sigla do seu estado em minúsculo: ");
+			estado = in.nextLine();
+
+			// SELEÇÃO DAS CATEGORIAS
+			System.out.println("Analise as categorias abaixo: \n" + "A Empregado\n" + "B Empregador\n"
+					+ "C Desempregado\n" + "\nSelecione em qual das categorias você se encaixa:");
+			categoria = in.nextLine();
+			// EMPREGADO
+			if (categoria.equals("a") || categoria.equals("A")) {
+				categoriaAtt = "Empregado";
+				System.out.println("Você é aposentado? \n" + "- Não \n" + "- Sim");
+				aposentado = in.nextLine();
+				// BENEFICIO EMPREGADO/APOSENTADO
+				if (aposentado == "Sim") {
+
+					System.out.println("Informe o valor do seu benefício: ");
+					beneficioEmpregado = in.nextInt();
+					while (beneficioEmpregado < 1000 || beneficioEmpregado > 1800) {
+						System.out.println("Por favor informe um valor válido!");
+						beneficioEmpregado = in.nextInt();
+					}
+
+				} else {
+					System.out.println("Informe o valor do seu benefício: ");
+					beneficioEmpregado = in.nextInt();
+					while (beneficioEmpregado < 1000 || beneficioEmpregado > 1800) {
+						System.out.println("Por favor informe um valor válido!");
+						beneficioEmpregado = in.nextInt();
+					}
+				}
+
+				// EMPREGADOR
+			} else if (categoria.equals("b") || categoria.equals("B")) {
+				categoriaAtt = "Empregador";
+				System.out.println("Quantos funcioários você tem? \n");
+				funcionarios = in.nextInt();
+				benEmpregadorTotalConta = funcionarios * benEmpregadorValor;
+
+				// DESEMPREGADO
+			} else if (categoria.equals("c") || categoria.equals("C")) {
+				categoriaAtt = "Desempregado";
+				System.out.println("Há quantos meses você está desempregado?");
+				desempregadoTempo = in.nextInt();
+				System.out.println("Informe o valor do seu benefício: ");
+				beneficioDesempregado = in.nextDouble();
+				while (beneficioDesempregado < 1500 || beneficioDesempregado > 2300) {
+					System.out.println("Por favor informe um valor válido!");
+					beneficioDesempregado = in.nextInt();
+				}
+
+			} else {
+				aposentado = "Não";
+				System.out.println("Informe o valor do seu benefício: ");
+				beneficioDesempregado = in.nextInt();
+				while (beneficioDesempregado < 1500 || beneficioDesempregado > 2300) {
+					System.out.println("Por favor informe um valor válido!");
+					beneficioDesempregado = in.nextInt();
+				}
+			}
+
+			double valorBeneficio = beneficioDesempregado + benEmpregadorTotalConta + beneficioEmpregado;
+
+			// CALCULA IDADE
+			LocalDate dataAtual = LocalDate.now();
+			LocalDate data = LocalDate.parse(sDataNasc, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+			int idade = dataAtual.getYear() - data.getYear();
+
+			if (dataAtual.getMonthValue() == data.getMonthValue()) {
+				if (dataAtual.getDayOfMonth() < data.getDayOfMonth()) {
+					idade -= 1;
+				}
+			} else {
+				if (dataAtual.getMonthValue() < data.getMonthValue()) {
+					idade -= 1;
+				}
+			}
+
+			String sRegras = "";
+
+			if (idade >= 18) {
+				// LETRA O
+				if (categoriaAtt.equals("Empregador")) {
+					tempoBeneficio = 7;
+					sRegras = sRegras + "O";
+				}
+
+				// LETRA R
+				if (funcionarios <= 10 && categoriaAtt.equals("Empregador")) {
+					tempoBeneficio = 10;
+					sRegras = sRegras + "R";
+				}
+
+				// LETRA E
+				if (aposentado.equals("Sim")) {
+					aposentadoTempo = 6;
+					sRegras = sRegras + "E";
+				}
+				// LETRA D
+				if (funcionarios <= 40 && categoriaAtt.equals("Empregador")) {
+					benEmpregadorTotalConta = benEmpregadorTotalConta * 0.11;
+					sRegras = sRegras + "D";
+				}
+			} else {
+				sRegras = "A";
+			}
+
+			switch (estado) {
+			// LETRA P
+			case ("am"): {
+				if (beneficioEmpregado != 0) {
+					beneficioEmpregado = beneficioEmpregado * 0.11;
+				} else if (benEmpregadorTotalConta != 0) {
+					benEmpregadorTotalConta = benEmpregadorTotalConta * 0.11;
+				} else {
+					beneficioDesempregado = beneficioDesempregado * 0.11;
+				}
+
+			}
+
+			}
+
+			System.out.println("----------------------------------------");
+			System.out.println("Nome completo: " + nome);
+			System.out.println("Data de nascimento: " + sDataNasc);
+			System.out.println("Categoria selecionada: " + categoriaAtt);
+			System.out.println("Regras atendidas: ");
+
+			for (int i = 0; i < sRegras.length(); ++i) {
+				switch (sRegras.charAt(i)) {
+
+				case 'P':
+					System.out.println("O benefício de pessoas que moram em Amazonas terá acréscimo de 11%");
+					break;
+
+				case 'E':
+					System.out.println("O benefício será de 6 meses para aposentados");
+					break;
+
+				case 'D':
+					System.out.println(
+							"Para empregadores que tenham até 40 funcionários haverá um acréscimo de 11% sobre o valor total");
+					break;
+
+				case 'R':
+					System.out.println("O Benefício será de 10 meses para empregadores com até 10 funcinários");
+					break;
+
+				case 'O':
+					System.out.println("O Benefício será de 7 meses para empregadores");
+					break;
+
+				case 'A':
+					System.out.println("O benefício só será concedido para maiores de 18 anos");
+					break;
+
+				}
+
+			}
+
+			if (sRegras.length() != 0 && sRegras.charAt(0) != 'A') {
+				valorTotalBeneficios += valorBeneficio;
+				iQtdBeneficiarios++;
+			}
+
+			QtdUsuariosLidos++;
+			
+			if (valorBeneficio > maiorValor)
+	        {
+	            if (maiorValor != 0)
+	            {
+	            	maiorValor = valorBeneficio;
+	            	beneficiarioValorMaior = nome;
+	            }
+	            else
+	            {
+	            	menorValor = valorBeneficio;
+	            	beneficiarioValorMenor = nome;
+	            }
+
+	        }
+	        else if (valorBeneficio > menorValor)
+	        {
+	        	menorValor = valorBeneficio;
+	        	beneficiarioValorMenor = nome;
+	        }
+
+	        if (maiorValor < menorValor)
+	        {
+	            double Auxiliar = maiorValor;
+	            maiorValor  = menorValor;
+	            menorValor = Auxiliar;
+
+	            String Auxiliar1 = beneficiarioValorMaior;
+	            beneficiarioValorMaior = beneficiarioValorMenor;
+	            beneficiarioValorMenor = Auxiliar1;
+	        }
+	        
+	        if (tempoBeneficio > 0 && tempoBeneficio > tempoBeneficioMaior)
+	        {
+	            if (tempoBeneficioMaior == 0)
+	            {
+	            	tempoBeneficioMaior = tempoBeneficio;
+	            	tempoBeneficioMaior1 = nome;
+	            }
+	            else
+	            {
+	            	tempoBeneficioMenor = tempoBeneficio;
+	            	tempoBeneficioMenor1 = nome;
+	            }
+	        }
+	        else if (tempoBeneficio > 0 && tempoBeneficio > tempoBeneficioMenor)
+	        {
+	        	tempoBeneficioMenor = tempoBeneficio;
+	        	tempoBeneficioMenor1 = nome;
+	        }
+
+	        if (tempoBeneficioMaior < tempoBeneficioMenor)
+	        {
+	            int Auxiliar = tempoBeneficioMaior;
+	            tempoBeneficioMaior  = tempoBeneficioMenor;
+	            tempoBeneficioMenor = Auxiliar;
+
+	            String Auxiliar1 = tempoBeneficioMaior1;
+	            tempoBeneficioMaior1 = tempoBeneficioMenor1;
+	            tempoBeneficioMenor1 = Auxiliar1;
+	        }
+	        
+			System.out.println("----------------------------------------\n");
+			System.out.println("Você deseja informar outro beneficiário? \n" + "- Não\n" + "- Sim");
+			escolha = in.next();
+		} while (escolha.equals("Sim"));
+		
+		System.out.println("Total de Usuários Lidos: "+QtdUsuariosLidos);
+		System.out.println("Total de Beneficiarios: "+iQtdBeneficiarios);
+		System.out.println("Total de Valor que será concedido: "+valorTotalBeneficios);
+		System.out.println("Beneficiários que irão receber os maiores valores: "+beneficiarioValorMaior + beneficiarioValorMenor);
+		System.out.println("Beneficiários que irão receber benefícios por mais tempo: "+tempoBeneficioMaior1 + tempoBeneficioMenor1);
+		System.out.println("-------------------------------------------\n");
+
+		System.out.println("Programa finalizado!");
+	}
+
+}
