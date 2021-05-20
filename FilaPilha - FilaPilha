@@ -1,0 +1,155 @@
+CLASSE FilaPilha
+
+import java.util.Scanner;
+
+public class FilaPilha {
+
+	public static void main(String[] args) {
+	
+			Paciente[] pacientes = new Paciente[20];
+			Scanner in = new Scanner(System.in);
+			int escolha = 0;
+			
+			System.out.println("===================================");
+			System.out.println("      Listamento de pacientes");
+			System.out.println("===================================\n");
+			
+			while(escolha != 3){
+				System.out.println("===---------------------------===");
+				System.out.println("""
+						
+						1. Incluir Paciente
+						2. Atender Paciente
+						3. Sair
+						""");
+				System.out.println("===---------------------------===");
+				escolha = in.nextInt();
+				
+				switch (escolha) {
+				case 1: {
+					
+					pacientes = incluirPaciente(new Paciente(), in, pacientes);
+					break;
+				}
+				case 2: {
+					
+					int tipoAtend = 1;
+					
+					do {
+						System.out.println("===---------------------------===");
+						System.out.println("1. Atender pelo NOME");
+						System.out.println("2. Atender pela ORDEM");
+						System.out.println("===---------------------------===");
+						tipoAtend = in.nextInt();
+						
+						if(tipoAtend == 1 || tipoAtend == 2) {
+							pacientes = AtenderPaciente(tipoAtend, in, pacientes);
+						}else {
+							System.out.println("Selecione algo válido!");
+						}
+						
+					}while(tipoAtend != 1 && tipoAtend != 2);
+					
+					break;
+				}
+				case 3: {
+					System.out.println("Saindo...");
+					break;
+				}
+				default:
+					System.out.println("Opção Inválida! - Tente novamente");
+					break;
+				}
+			}
+			
+			in.close();
+		}
+		
+		public static Paciente[] incluirPaciente(Paciente paciente, Scanner sc, Paciente[] pacientes) {
+			
+			if(pacientes[pacientes.length-1] == null) {
+				
+				sc.nextLine();
+				
+				System.out.println("Informe o nome: ");
+				paciente.setNome(sc.nextLine());
+				
+				System.out.println("Informe a idade: ");
+				paciente.setIdade(sc.nextInt());
+				
+				sc.nextLine();
+				
+				System.out.println("Descrição do caso: ");
+				paciente.setDescricao(sc.nextLine());
+				
+				for (int i = 0; i < pacientes.length; i++) {
+					if(pacientes[i] == null) {
+						pacientes[i] = paciente;
+						break;
+					}
+				}
+				
+			}else {
+				System.out.println("A fila de atendimento está cheia!");
+			}
+			
+			return pacientes;
+		}
+		
+		public static Paciente[] AtenderPaciente(int tipoAtendimento, Scanner sc, Paciente[] pacientes) {
+			
+			if(tipoAtendimento == 1) {
+				
+				sc.nextLine();
+				
+				System.out.println("Informe o paciente atendido: ");
+				String nome = sc.nextLine();
+				
+				for (int i = 0; i < pacientes.length; i++) {
+					
+					if(pacientes[i] != null) {
+						if(pacientes[i].getNome().equals(nome)) {
+							pacientes[i] = null;
+							System.out.println("Cliente foi atendido!");
+							break;
+						}
+					}
+					
+					if(i == pacientes.length-1) {
+						System.out.println("Cliente não está na fila!");
+					}
+				}
+				
+			}else {
+				for (int i = 0; i < pacientes.length; i++) {
+					
+					if(pacientes[i] != null) {
+						pacientes[i] = null;
+						System.out.println("Cliente foi atendido!");
+						break;
+					}
+					
+					if(i == pacientes.length-1) {
+						System.out.println("Não existem clientes na fila!");
+					}
+				}
+			}
+			
+			return reorganizaFila(pacientes);
+		}
+		
+		public static Paciente[] reorganizaFila(Paciente[] pacientes) {
+			for (int i = 0; i < pacientes.length; i++) {
+
+				if(pacientes[i] == null && (i+1) < pacientes.length) {
+					for (int j = i; j < pacientes.length-1; j++) {
+						Paciente pacienteTroca = pacientes[j];
+						pacientes[j] = pacientes[j+1];
+						pacientes[j+1] = pacienteTroca;
+					}
+				}
+			}
+			
+			return pacientes;
+		}
+}
