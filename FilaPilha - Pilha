@@ -1,0 +1,108 @@
+import java.util.Scanner;
+
+public class Pilha {
+	
+	public static void main(String[] args) {
+		
+		Caixa[] caixas = new Caixa[10];
+		Scanner teclado = new Scanner(System.in);
+		int escolha = 0;
+		
+		System.out.println("===================================");
+		System.out.println("      Empilhamento de Caixas");
+		System.out.println("===================================\n");
+		
+		while(escolha != 3){
+			System.out.println("===---------------------------===");
+			System.out.println("""
+					
+					1. Empilhar caixa
+					2. Desempilhar caixa
+					3. Sair
+					""");
+			System.out.println("===---------------------------===");
+			escolha = teclado.nextInt();
+			
+			switch (escolha) {
+			case 1: {
+				
+				if(caixas[0] == null) {
+					Caixa caixa = new Caixa();
+					
+					System.out.println("Identificador: ");
+					caixa.setIdentificador(teclado.next());
+					
+					System.out.println("Altura: ");
+					caixa.setAltura(teclado.nextDouble());
+					
+					System.out.println("Largura: ");
+					caixa.setLargura(teclado.nextDouble());
+					
+					System.out.println("Profundidade: ");
+					caixa.setProfundidade(teclado.nextDouble());
+					
+					System.out.println("O conteúdo é frágil? ");
+					char fragil = teclado.next().charAt(0);
+					
+					if(fragil == 'S' || fragil == 's') {
+						caixa.setConteudoFragil(true);
+					}else {
+						caixa.setConteudoFragil(false);
+					}
+					
+					caixas = empilhar(caixa, caixas);
+				}else {
+					System.out.println("Pilha está cheia!");
+				}
+				
+				break;
+			}
+			case 2: {
+				caixas = desempilhar(caixas);
+				break;
+			}
+			case 3: {
+				System.out.println("Saindo...");
+				break;
+			}
+			default:
+				System.out.println("Opção Inválida! - Tente novamente");
+				break;
+			}
+		}
+		
+		teclado.close();
+	}
+	
+
+	public static Caixa[] empilhar(Caixa caixa, Caixa[] caixas){
+		for (int i = caixas.length-1; i >= 0; i--) {
+			if(caixas[i] == null) {
+				caixas[i] = caixa;
+				break;
+			}
+
+			if(i == 0) {
+				System.out.println("A pilha já está cheia!");
+			}
+		}
+		return caixas;
+	}
+	
+
+	public static Caixa[] desempilhar(Caixa[] caixas){
+		for (int i = 0; i < caixas.length; i++) {
+			if(caixas[i] != null) {
+				caixas[i] = null;
+				System.out.println("Caixa retirada com sucesso!");
+				break;
+			}
+
+			if(i == caixas.length-1) {
+				System.out.println("A pilha está vazia!");
+			}
+		}
+		return caixas;
+	}
+
+}
